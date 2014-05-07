@@ -21,12 +21,12 @@
     <%= render 'partials/global/topnav/topnav' %>
 
     <section class="main-section">
-      <%= yield %>
-      <!-- content goes here -->
+      <div class="large-12">
+        <%= yield %>
+        <%= session.inspect %>
+      </div>
     </section>
-
   <a class="exit-off-canvas"></a>
-
   </div>
 </div>
 

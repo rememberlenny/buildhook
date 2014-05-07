@@ -1,4 +1,8 @@
 Buildhook::Application.routes.draw do
+  resources :services
+
+  get 'endpoint/:company/:request' => 'endpoint#show'
+
   root 'page#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

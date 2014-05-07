@@ -660,8 +660,8 @@
 
 // $include-html-off-canvas-classes: $include-html-classes;
 
-// $tabbar-bg: #333;
-// $tabbar-height: rem-calc(45);
+$tabbar-bg: darken(rgb(45, 17, 82), 10%);
+$tabbar-height: rem-calc(70);
 // $tabbar-line-height: $tabbar-height;
 // $tabbar-color: #fff;
 // $tabbar-middle-padding: 0 rem-calc(10);
@@ -1172,7 +1172,7 @@
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-// $topbar-height: 45px;
+$topbar-height: 70px;
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar

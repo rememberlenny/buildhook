@@ -1,0 +1,17 @@
+<div class="row">
+
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Name:</strong>
+    <%= @service.name %>
+  </p>
+
+  <p>
+    <strong>Action:</strong>
+    <%= @service.action %>
+  </p>
+
+  <%= link_to 'Edit', edit_service_path(@service) %> |
+  <%= link_to 'Back', services_path %>
+</div>
