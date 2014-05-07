@@ -7,6 +7,8 @@
       <tr>
         <th>Name</th>
         <th>Action</th>
+        <th>Desciption</th>
+        <th></th>
         <th></th>
         <th></th>
         <th></th>
@@ -18,6 +20,7 @@
         <tr>
           <td><%= service.name %></td>
           <td><%= service.action %></td>
+          <td><%= service.description  %></td>
           <td><%= link_to 'Show', service %></td>
           <td><%= link_to 'Edit', edit_service_path(service) %></td>
           <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
