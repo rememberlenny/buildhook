@@ -13,7 +13,24 @@
 
   <body>
 
-    <%= yield %>
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+
+    <%= render 'partials/global/topnav/offsite_left' %>
+    <%= render 'partials/global/topnav/offsite_right' %>
+    <%= render 'partials/global/topnav/topnav' %>
+
+    <section class="main-section">
+      <%= yield %>
+      <!-- content goes here -->
+    </section>
+
+  <a class="exit-off-canvas"></a>
+
+  </div>
+</div>
+
+
     <%= javascript_include_tag "application" %>
   </body>
 </html>
