@@ -1,7 +1,10 @@
 Buildhook::Application.routes.draw do
   resources :services
 
-  get 'endpoint/:company/:request' => 'services#endpoint'
+  get 'endpoint/:company/build' => 'services#endpoint'
+  get 'endpoint/:company/add'   => 'services#add'
+  get 'endpoint/:company/next'  => 'services#next'
+  get 'endpoint/:company'       => 'services#current'
 
   root 'page#home'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,81 +1,65 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
-  def endpoint
+  def current
     company = params['company']
-    request = params['request']
-    @service = Service.find_by( name: company )
-    response = @service['description']
+    @service = Service.last
+    response = @service
 
     msg = {
-      :status   => "Success!",
+      :status   => "Next service!",
       :service  => company,
-      :action   => request,
-      :response => response,
+      :current  => response,
+    }
+
+    render :json => msg # don't do msg.to_json
+  end
+
+  def next
+    company = params['company']
+    @service = Service.new( name: company, description: '' )
+    @service.save
+
+    msg = {
+      :status   => "Next service!",
+      :service  => company,
+      :new => @service,
+    }
+
+    render :json => msg # don't do msg.to_json
+  end
+
+  def add
+    company = params['company']
+    @service = Service.find_by( name: company )
+    currentDescription = @service['description']
+    @service['description'] = @service['description'] + ' ' + currentDescription
+    @service.save
+
+    msg = {
+      :status   => "Added!",
+      :service  => company,
+      :old => currentDescription,
+      :new => @service['description'],
     }
 
     render :json => msg # don't do msg.to_json
 
   end
 
-  # GET /services
-  # GET /services.json
-  def index
-    @services = Service.all
-  end
+  def endpoint
+    company = params['company']
+    @service = Service.find_by( name: company )
+    response = @service['description']
 
-  # GET /services/1
-  # GET /services/1.json
-  def show
-  end
+    msg = {
+      :status   => "Success!",
+      :service  => company,
+      :response => response,
+    }
 
-  # GET /services/new
-  def new
-    @service = Service.new
-  end
+    render :json => msg # don't do msg.to_json
 
-  # GET /services/1/edit
-  def edit
-  end
-
-  # POST /services
-  # POST /services.json
-  def create
-    @service = Service.new(service_params)
-
-    respond_to do |format|
-      if @service.save
-        format.html { redirect_to @service, notice: 'Service was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @service }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @service.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /services/1
-  # PATCH/PUT /services/1.json
-  def update
-    respond_to do |format|
-      if @service.update(service_params)
-        format.html { redirect_to @service, notice: 'Service was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @service.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /services/1
-  # DELETE /services/1.json
-  def destroy
-    @service.destroy
-    respond_to do |format|
-      format.html { redirect_to services_url }
-      format.json { head :no_content }
-    end
   end
 
   private
