@@ -7,7 +7,7 @@ class ServicesController < ApplicationController
     response = @service
 
     msg = {
-      :status   => "Next service!",
+      :status   => "Current service!",
       :service  => company,
       :current  => response,
     }
@@ -51,7 +51,6 @@ class ServicesController < ApplicationController
     company = params['company']
     @service = Service.find_by( name: company )
     response = @service['description']
-
     msg = {
       :status   => "Success!",
       :service  => company,

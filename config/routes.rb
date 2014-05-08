@@ -1,5 +1,4 @@
 Buildhook::Application.routes.draw do
-  resources :services
 
   get 'endpoint/:company/build' => 'services#endpoint'
   get 'endpoint/:company/add'   => 'services#add'
