@@ -2,9 +2,9 @@ class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
   def current
-    company = params['company']
-    @service = Service.last
-    response = @service
+    company     = params['company']
+    @service    = Service.last
+    response    = @service
 
     msg = {
       :status   => "Current service!",
@@ -16,31 +16,32 @@ class ServicesController < ApplicationController
   end
 
   def next
-    company = params['company']
-    @service = Service.new( name: company, description: '' )
+    company     = params['company']
+    @service    = Service.new( name: company, description: [] )
     @service.save
 
     msg = {
       :status   => "Next service!",
       :service  => company,
-      :new => @service,
+      :new      => @service,
     }
 
     render :json => msg # don't do msg.to_json
   end
 
   def add
-    company = params['company']
-    @service = Service.find_by( name: company )
-    currentDescription = @service['description']
-    @service['description'] = @service['description'] + ' ' + currentDescription
+    company                 = params['company']
+    newDescription          = params['newDescription']
+    @service                = Service.find_by( name: company )
+    currentDescription      = @service['description']
+    @service['description'] = currentDescription.push(newDescription)
     @service.save
 
     msg = {
       :status   => "Added!",
       :service  => company,
-      :old => currentDescription,
-      :new => @service['description'],
+      :new      => newDescription,
+      :all      => @service['description'],
     }
 
     render :json => msg # don't do msg.to_json
@@ -48,9 +49,9 @@ class ServicesController < ApplicationController
   end
 
   def endpoint
-    company = params['company']
-    @service = Service.find_by( name: company )
-    response = @service['description']
+    company   = params['company']
+    @service  = Service.find_by( name: company )
+    response  = @service['description']
     msg = {
       :status   => "Success!",
       :service  => company,
