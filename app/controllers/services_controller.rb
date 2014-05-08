@@ -15,18 +15,11 @@ class ServicesController < ApplicationController
     render :json => msg # don't do msg.to_json
   end
 
-  def next
+  def loadNext
     company     = params['company']
     @service    = Service.new( name: company, description: [].to_json )
     @service.save
 
-    msg = {
-      :status   => "Next service!",
-      :service  => company,
-      :new      => @service,
-    }
-
-    render :json => msg # don't do msg.to_json
   end
 
   def add
@@ -58,6 +51,7 @@ class ServicesController < ApplicationController
       :service  => company,
       :response => response,
     }
+    loadNext
 
     render :json => msg # don't do msg.to_json
 

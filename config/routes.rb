@@ -2,7 +2,7 @@ Buildhook::Application.routes.draw do
 
   get 'endpoint/:company/build' => 'services#endpoint'
   get 'endpoint/:company/add/:newDescription'   => 'services#add'
-  get 'endpoint/:company/next'  => 'services#next'
+  get 'endpoint/:company/next'  => 'services#loadNext'
   get 'endpoint/:company'       => 'services#current'
 
   root 'page#home'
