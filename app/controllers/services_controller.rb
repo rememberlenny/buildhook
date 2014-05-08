@@ -17,7 +17,7 @@ class ServicesController < ApplicationController
 
   def next
     company     = params['company']
-    @service    = Service.new( name: company, description: [] )
+    @service    = Service.new( name: company, description: [].to_json )
     @service.save
 
     msg = {
@@ -32,9 +32,10 @@ class ServicesController < ApplicationController
   def add
     company                 = params['company']
     newDescription          = params['newDescription']
-    @service                = Service.find_by( name: company )
-    currentDescription      = @service['description']
-    @service['description'] = currentDescription.push(newDescription)
+    @service                = Service.last
+    currentDescription      = JSON::parse(@service['description'])
+    currentDescription      = currentDescription.push(newDescription)
+    @service['description'] = currentDescription.to_json
     @service.save
 
     msg = {
@@ -50,7 +51,7 @@ class ServicesController < ApplicationController
 
   def endpoint
     company   = params['company']
-    @service  = Service.find_by( name: company )
+    @service  = Service.last
     response  = @service['description']
     msg = {
       :status   => "Success!",
